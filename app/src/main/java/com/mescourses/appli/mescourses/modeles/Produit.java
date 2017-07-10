@@ -18,9 +18,10 @@ public class Produit implements Parcelable{
     private float       prix        ;
     private float       poids       ;
     private String      lienPhoto   ;
+    private int         manque      ;
 
 
-    public Produit(Utilisateur unUtilisateur, String nom, String marque, String description, String type, float prix, float poids, String lienPhoto) {
+    public Produit(Utilisateur unUtilisateur, String nom, String marque, String description, String type, float prix, float poids, String lienPhoto, int manque) {
         this._ID           = -1;
         this.unUtilisateur = unUtilisateur ;
         this.nom           = nom;
@@ -30,10 +31,11 @@ public class Produit implements Parcelable{
         this.prix          = prix;
         this.poids         = poids;
         this.lienPhoto     = lienPhoto;
+        this.manque        = manque;
     }
 
-    public Produit(long ID, Utilisateur unUtilisateur, String nom, String marque, String description, String type, float prix, float poids, String lienPhoto) {
-        this(unUtilisateur, nom,marque,description,type,prix,poids,lienPhoto) ;
+    public Produit(long ID, Utilisateur unUtilisateur, String nom, String marque, String description, String type, float prix, float poids, String lienPhoto, int manque) {
+        this(unUtilisateur, nom,marque,description,type,prix,poids,lienPhoto,manque) ;
         this._ID = ID;
     }
 
@@ -56,16 +58,16 @@ public class Produit implements Parcelable{
     public String toString() {
 
         return ("ID:" + this._ID + "/" + "Nom:" + this.nom + "/" + "Marque:" + this.marque + "/" + "Type:" +
-        this.type + "/" + "Poids:" + this.poids + "/" + "Prix:" + this.prix) ;
+        this.type + "/" + "Poids:" + this.poids + "/" + "Prix:" + this.prix + "Manque:" + this.manque) ;
 
     }
 
 
-    public long getID() {
+    public long get_ID() {
         return _ID;
     }
 
-    public void setID(long ID) {
+    public void set_ID(long ID) {
         this._ID = ID;
     }
 
@@ -131,6 +133,14 @@ public class Produit implements Parcelable{
 
     public void setLienPhoto(String lienPhoto) {
         this.lienPhoto = lienPhoto;
+    }
+
+    public int getManque() {
+        return manque;
+    }
+
+    public void setManque(int manque) {
+        this.manque = manque;
     }
 
     @Override

@@ -10,10 +10,11 @@ import android.os.Parcelable;
 public class Panier implements Parcelable{
 
     private  long      _ID ;
-    private Course uneCourse ;
-    private Magasin unMagasin ;
-    private Produit unProduit ;
-    private  int       trouve    ;
+    private Course     uneCourse ;
+    private Magasin    unMagasin ;
+    private Produit    unProduit ;
+    private int        trouve  ;
+    private int        quantite ;
 
     public Panier(long _ID, Course uneCourse, Magasin unMagasin, Produit unProduit) {
         this(uneCourse,unMagasin,unProduit) ;
@@ -59,12 +60,20 @@ public class Panier implements Parcelable{
         this.unProduit = unProduit;
     }
 
-    public int isTrouve() {
+    public void setTrouve(int trouve) {
+        this.trouve = trouve;
+    }
+
+    public int getTrouve() {
         return trouve;
     }
 
-    public void setTrouve(int trouve) {
-        this.trouve = trouve;
+    public int getQuantite() {
+        return quantite;
+    }
+
+    public void setQuantite(int quantite) {
+        this.quantite = quantite;
     }
 
     @Override

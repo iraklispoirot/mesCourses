@@ -2,10 +2,10 @@ package com.mescourses.appli.mescourses.DAO;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.mescourses.appli.mescourses.modeles.Utilisateur;
+import com.mescourses.appli.mescourses.DBHelper.DbHelper ;
 
 /**
  * Created by student on 10-07-17.
@@ -59,12 +59,12 @@ public class UtilisateurDAO {
         dbHelper.close();
     }
 
-    private ContentValues UtilisateurToContentValues(Utilisateur p) {
+    private ContentValues UtilisateurToContentValues(Utilisateur u) {
         ContentValues cv = new ContentValues();
-        cv.put(COLUMN_ID, p.get_ID()) ;
-        cv.put(COLUMN_DATABASE, p.getDatabase()) ;
-        cv.put(COLUMN_LOGIN, p.getLogin()) ;
-        cv.put(COLUMN_NOM, p.getNom()) ;
+        cv.put(COLUMN_ID, u.get_ID()) ;
+        cv.put(COLUMN_DATABASE, u.getDatabase()) ;
+        cv.put(COLUMN_LOGIN, u.getLogin()) ;
+        cv.put(COLUMN_NOM, u.getNom()) ;
         return cv;
     }
 
@@ -74,7 +74,7 @@ public class UtilisateurDAO {
         ContentValues cv = UtilisateurToContentValues(u) ;
 
         long id = db.insert(TABLE_UTILISATEUR,null, cv) ;
-        u.setId((int) id) ;
+        u.set_ID((int) id); ;
 
         Utilisateur check = (id != -1) ? u : null;
         return check;
@@ -82,7 +82,7 @@ public class UtilisateurDAO {
     }
 
     public void delete(Utilisateur u) {
-        String whereClause = COLUMN_ID + " = " + u.getId();
+        String whereClause = COLUMN_ID + " = " + u.get_ID();
         db.delete(TABLE_UTILISATEUR, whereClause, null);
     }
 
@@ -91,7 +91,7 @@ public class UtilisateurDAO {
     public long update(Utilisateur u) {
         ContentValues cv = UtilisateurToContentValues(u);
 
-        String whereClause = COLUMN_ID + " = " + u.getId();
+        String whereClause = COLUMN_ID + " = " + u.get_ID();
         long number = db.update(TABLE_UTILISATEUR, cv, whereClause,null);
         return  number;
     }

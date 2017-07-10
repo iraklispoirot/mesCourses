@@ -63,6 +63,14 @@ public class Magasin implements Parcelable{
         this._ID = _ID;
     }
 
+    public Utilisateur getUnUtilisateur() {
+        return unUtilisateur;
+    }
+
+    public void setUnUtilisateur(Utilisateur unUtilisateur) {
+        this.unUtilisateur = unUtilisateur;
+    }
+
     public String getNom() {
         return nom;
     }
