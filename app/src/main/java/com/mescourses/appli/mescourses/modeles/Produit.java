@@ -9,43 +9,46 @@ import android.os.Parcelable;
 
 public class Produit implements Parcelable{
 
-    private long     _ID          ;
-    private String   nom         ;
-    private String   marque      ;
-    private String   description ;
-    private String   type        ;
-    private float    prix        ;
-    private float    poids       ;
-    private String   lienPhoto   ;
+    private long        _ID         ;
+    private Utilisateur unUtilisateur ;
+    private String      nom         ;
+    private String      marque      ;
+    private String      description ;
+    private String      type        ;
+    private float       prix        ;
+    private float       poids       ;
+    private String      lienPhoto   ;
 
 
-    public Produit(String nom, String marque, String description, String type, float prix, float poids, String lienPhoto) {
-        this._ID         = -1;
-        this.nom         = nom;
-        this.marque      = marque;
-        this.description = description;
-        this.type        = type;
-        this.prix        = prix;
-        this.poids       = poids;
-        this.lienPhoto   = lienPhoto;
+    public Produit(Utilisateur unUtilisateur, String nom, String marque, String description, String type, float prix, float poids, String lienPhoto) {
+        this._ID           = -1;
+        this.unUtilisateur = unUtilisateur ;
+        this.nom           = nom;
+        this.marque        = marque;
+        this.description   = description;
+        this.type          = type;
+        this.prix          = prix;
+        this.poids         = poids;
+        this.lienPhoto     = lienPhoto;
     }
 
-    public Produit(long ID, String nom, String marque, String description, String type, float prix, float poids, String lienPhoto) {
-        this(nom,marque,description,type,prix,poids,lienPhoto) ;
+    public Produit(long ID, Utilisateur unUtilisateur, String nom, String marque, String description, String type, float prix, float poids, String lienPhoto) {
+        this(unUtilisateur, nom,marque,description,type,prix,poids,lienPhoto) ;
         this._ID = ID;
     }
 
 
-    public Produit(String nom, String marque, String type) {
+    public Produit(Utilisateur unUtilisateur, String nom, String marque, String type) {
         this._ID = -1;
+        this.unUtilisateur = unUtilisateur ;
         this.nom = nom;
         this.marque = marque;
         this.type = type;
     }
 
 
-    public Produit(long ID, String nom, String marque, String type) {
-        this(nom,marque,type) ;
+    public Produit(long ID, Utilisateur unUtilisateur, String nom, String marque, String type) {
+        this(unUtilisateur,nom,marque,type) ;
         this._ID = ID;
     }
 
@@ -64,6 +67,14 @@ public class Produit implements Parcelable{
 
     public void setID(long ID) {
         this._ID = ID;
+    }
+
+    public Utilisateur getUnUtilisateur() {
+        return unUtilisateur;
+    }
+
+    public void setUnUtilisateur(Utilisateur unUtilisateur) {
+        this.unUtilisateur = unUtilisateur;
     }
 
     public String getNom() {
@@ -124,13 +135,14 @@ public class Produit implements Parcelable{
 
     @Override
     public int describeContents() {
-        return 0;
+        return 1;
     }
 
     @Override
     public void writeToParcel(Parcel dest, int i) {
 
          dest.writeLong(_ID);
+         dest.writeParcelable(unUtilisateur,1);
          dest.writeString(nom) ;
          dest.writeString(marque) ;
          dest.writeString(description) ;
@@ -142,6 +154,7 @@ public class Produit implements Parcelable{
     //region CREATOR
     public Produit(Parcel in) {
         this._ID         = in.readLong() ;
+        this.unUtilisateur = in.readParcelable(Utilisateur.class.getClassLoader()) ;
         this.nom         = in.readString();
         this.marque      = in.readString();
         this.description = in.readString();

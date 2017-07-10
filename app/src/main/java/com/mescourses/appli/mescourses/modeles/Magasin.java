@@ -10,6 +10,7 @@ import android.os.Parcelable;
 public class Magasin implements Parcelable{
 
    private long    _ID ;
+   private Utilisateur unUtilisateur ;
    private String  nom ;
    private String  adresse ;
    private String  description ;
@@ -27,13 +28,14 @@ public class Magasin implements Parcelable{
                 ;
     }
 
-    public Magasin(long _ID, String nom, String adresse, String description, float pos_latitude, float pos_longitude) {
-        this(nom,adresse,description, pos_latitude,pos_longitude) ;
+    public Magasin(long _ID, Utilisateur unUtilisateur ,String nom, String adresse, String description, float pos_latitude, float pos_longitude) {
+        this(unUtilisateur, nom,adresse,description, pos_latitude,pos_longitude) ;
         this._ID = _ID;
     }
 
-    public Magasin(String nom, String adresse, String description, float pos_latitude, float pos_longitude) {
+    public Magasin(Utilisateur unUtilisateur, String nom, String adresse, String description, float pos_latitude, float pos_longitude) {
         this._ID = -1 ;
+        this.unUtilisateur = unUtilisateur ;
         this.nom = nom;
         this.adresse = adresse;
         this.description = description ;
@@ -41,13 +43,14 @@ public class Magasin implements Parcelable{
         this.pos_longitude = pos_longitude;
     }
 
-    public Magasin(long _ID, String nom, String adresse) {
-        this(nom,adresse) ;
+    public Magasin(long _ID, Utilisateur unUtilisateur, String nom, String adresse) {
+        this(unUtilisateur, nom,adresse) ;
         this._ID = _ID;
     }
 
-    public Magasin(String nom, String adresse) {
+    public Magasin(Utilisateur unUtilisateur, String nom, String adresse) {
         this._ID = -1 ;
+        this.unUtilisateur = unUtilisateur ;
         this.nom = nom;
         this.adresse = adresse;
     }
@@ -103,13 +106,14 @@ public class Magasin implements Parcelable{
 
     @Override
     public int describeContents() {
-        return 0;
+        return 1;
     }
 
     @Override
     public void writeToParcel(Parcel dest, int i) {
 
        dest.writeLong(_ID);
+       dest.writeParcelable(unUtilisateur,1);
        dest.writeString(nom);
        dest.writeString(adresse);
        dest.writeString(description) ;
@@ -120,6 +124,7 @@ public class Magasin implements Parcelable{
     //region CREATOR
     public Magasin(Parcel in) {
         this._ID         = in.readLong() ;
+        this.unUtilisateur = in.readParcelable(Utilisateur.class.getClassLoader()) ;
         this.nom         = in.readString();
         this.adresse     = in.readString();
         this.description = in.readString();
