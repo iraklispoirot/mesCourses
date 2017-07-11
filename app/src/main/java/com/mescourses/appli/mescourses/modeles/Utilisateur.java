@@ -11,8 +11,6 @@ public class Utilisateur implements Parcelable {
 
     private long      _ID      ;
     private String    login    ;
-
-    private String    database ;
     private String    nom      ;
 
 
@@ -20,7 +18,6 @@ public class Utilisateur implements Parcelable {
 
         this(login,nom) ;
         this._ID = _ID;
-        this.database = _ID + ".db" ;
     }
 
     public Utilisateur(String login, String nom) {
@@ -50,14 +47,6 @@ public class Utilisateur implements Parcelable {
         this.login = login;
     }
 
-    public String getDatabase() {
-        return database;
-    }
-
-    public void setDatabase(String database) {
-        this.database = database;
-    }
-
     public String getNom() {
         return nom;
     }
@@ -70,7 +59,6 @@ public class Utilisateur implements Parcelable {
     public String toString() {
         return  "_ID:" + _ID +
                 "/login:" + login +
-                "/database:" + database +
                 "/nom:" + nom ;
     }
 
@@ -85,7 +73,6 @@ public class Utilisateur implements Parcelable {
 
         dest.writeLong(_ID);
         dest.writeString(login);
-        dest.writeString(database);
         dest.writeString(nom);
     }
 
@@ -93,7 +80,6 @@ public class Utilisateur implements Parcelable {
     public Utilisateur(Parcel in) {
         this._ID         = in.readLong() ;
         this.login       = in.readString() ;
-        this.database    = in.readString() ;
         this.nom         = in.readString() ;
     }
 

@@ -2,6 +2,7 @@ package com.mescourses.appli.mescourses.DAO;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.mescourses.appli.mescourses.modeles.Utilisateur;
@@ -19,14 +20,12 @@ public class UtilisateurDAO {
 
     public static final String  COLUMN_ID        =  "_id" ;
     public static final String  COLUMN_LOGIN     =  "login";
-    public static final String  COLUMN_DATABASE  =  "database";
-    public static final String  COLUMN_NOM      =  "nom" ;
+    public static final String  COLUMN_NOM        =  "nom" ;
 
     public static final String CREATE_REQUEST =
             "CREATE TABLE IF NOT EXISTS " + TABLE_UTILISATEUR + " ( "
             + COLUMN_ID  + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + COLUMN_LOGIN    + " TEXT NOT NULL, "
-            + COLUMN_DATABASE + " TEXT NOT NULL, "
             + COLUMN_NOM     + " TEXT"
             + " );";
     public static final String DELETE_REQUEST =
@@ -62,7 +61,6 @@ public class UtilisateurDAO {
     private ContentValues UtilisateurToContentValues(Utilisateur u) {
         ContentValues cv = new ContentValues();
         cv.put(COLUMN_ID, u.get_ID()) ;
-        cv.put(COLUMN_DATABASE, u.getDatabase()) ;
         cv.put(COLUMN_LOGIN, u.getLogin()) ;
         cv.put(COLUMN_NOM, u.getNom()) ;
         return cv;
@@ -74,7 +72,7 @@ public class UtilisateurDAO {
         ContentValues cv = UtilisateurToContentValues(u) ;
 
         long id = db.insert(TABLE_UTILISATEUR,null, cv) ;
-        u.set_ID((int) id); ;
+        u.set_ID((int) id);
 
         Utilisateur check = (id != -1) ? u : null;
         return check;
@@ -97,6 +95,60 @@ public class UtilisateurDAO {
     }
 
 
+    private Utilisateur cursorToUtilisateur(Cursor c) {
+        int id = c.getInt(c.getColumnIndex(COLUMN_ID));
+        String login  = c.getString(c.getColumnIndex(COLUMN_LOGIN));
+        String nom = c.getString(c.getColumnIndex(COLUMN_NOM));
+         return new Utilisateur(id, login, nom);
+    }
+
+    public Utilisateur getUserById(int id)
+    {
+        String where = COLUMN_ID + " = " + id;
+
+        Cursor c = db.query(TABLE_UTILISATEUR,null,where,null,null,null,null );
+
+        int count = c.getCount();
+        if(count > 0){
+            c.moveToFirst();
+            Utilisateur u = cursorToUtilisateur(c);
+            return u;
+        }
+        return null;
+    }
+
+    public Utilisateur getUserByLogin(String login)
+    {
+        String where = COLUMN_LOGIN + " LIKE " + login;
+
+        Cursor c = db.query(TABLE_UTILISATEUR,null,where,null,null,null,null );
+
+        int count = c.getCount();
+        if(count > 0){
+            c.moveToFirst();
+            Utilisateur u = cursorToUtilisateur(c);
+            return u;
+        }
+        return null;
+    }
+
+    public Utilisateur[] getAll(){
+
+        Cursor c = db.query(TABLE_UTILISATEUR,null, null, null, null, null, null);
+
+        int count = c.getCount();
+
+        if(count > 0) {
+            Utilisateur[] utilisateurs = new Utilisateur[count];
+
+            for(int i = 0; i < count; i++) {
+                c.moveToPosition(i);
+                utilisateurs[i] = cursorToUtilisateur(c);
+            }
+            return utilisateurs;
+        }
+        return null;
+    }
 
 }
 

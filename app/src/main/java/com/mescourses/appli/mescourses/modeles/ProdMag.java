@@ -9,21 +9,25 @@ import android.os.Parcelable;
 
 public class ProdMag implements Parcelable{
 
-    private    long       _ID ;
-    private    String     nom ;
-    private Produit unProduit  ;
-    private Magasin unMagasin  ;
+    private    long      _ID ;
+    private    String    nom ;
+    private Produit      unProduit  ;
+    private Magasin      unMagasin  ;
+    private Utilisateur  unUtilisateur ;
+    private int          favori        ;
 
-    public ProdMag(long _ID, String nom, Produit unProduit, Magasin unMagasin) {
-        this(nom,unProduit,unMagasin) ;
+    public ProdMag(long _ID, String nom, Produit unProduit, Magasin unMagasin,  Utilisateur  unUtilisateur, int favori) {
+        this(nom,unProduit,unMagasin, unUtilisateur, favori) ;
         this._ID = _ID;
     }
 
-    public ProdMag(String nom, Produit unProduit, Magasin unMagasin) {
+    public ProdMag(String nom, Produit unProduit, Magasin unMagasin, Utilisateur  unUtilisateur, int favori) {
         this._ID = -1;
         this.nom = nom;
         this.unProduit = unProduit;
         this.unMagasin = unMagasin;
+        this.unUtilisateur = unUtilisateur;
+        this.favori = favori ;
     }
 
     @Override
@@ -32,7 +36,8 @@ public class ProdMag implements Parcelable{
                 "_ID:" + _ID +'/' +
                 "nom:" + nom + '/' +
                 "Produit:" + unProduit + '/' +
-                "Magasin:" + unMagasin
+                "Magasin:" + unMagasin + '/' +
+                "Utilisateur:" + unUtilisateur
                 ;
     }
 
@@ -68,9 +73,25 @@ public class ProdMag implements Parcelable{
         this.unMagasin = unMagasin;
     }
 
+    public Utilisateur getUnUtilisateur() {
+        return unUtilisateur;
+    }
+
+    public void setUnUtilisateur(Utilisateur unUtilisateur) {
+        this.unUtilisateur = unUtilisateur;
+    }
+
+    public int getFavori() {
+        return favori;
+    }
+
+    public void setFavori(int favori) {
+        this.favori = favori;
+    }
+
     @Override
     public int describeContents() {
-        return 2;
+        return 3;
     }
 
     @Override
@@ -79,15 +100,18 @@ public class ProdMag implements Parcelable{
         dest.writeString(nom);
         dest.writeParcelable(unProduit,1);
         dest.writeParcelable(unMagasin,2);
+        dest.writeParcelable(unUtilisateur,3);
+        dest.writeInt(favori);
     }
 
     //region CREATOR
     public ProdMag(Parcel in) {
-        this._ID         = in.readLong() ;
-        this.nom         = in.readString();
-        this.unProduit   = in.readParcelable(Produit.class.getClassLoader()) ;
-        this.unMagasin   = in.readParcelable(Magasin.class.getClassLoader()) ;
-
+        this._ID             = in.readLong() ;
+        this.nom             = in.readString();
+        this.unProduit       = in.readParcelable(Produit.class.getClassLoader()) ;
+        this.unMagasin       = in.readParcelable(Magasin.class.getClassLoader()) ;
+        this.unUtilisateur   = in.readParcelable(Utilisateur.class.getClassLoader()) ;
+        this.favori          = in.readInt() ;
     }
 
     static Creator<ProdMag> CREATOR = new Creator<ProdMag>() {
@@ -102,6 +126,7 @@ public class ProdMag implements Parcelable{
         }
     };
     //endregion
+
 
 
 }

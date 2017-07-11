@@ -9,17 +9,20 @@ import android.os.Parcelable;
 
 public class Course implements Parcelable{
 
-    private    long    _ID ;
-    private    String  nom ;
+    private    long         _ID ;
+    private    String       nom ;
+    private    Utilisateur  unUtilisateur ;
 
-    public Course(long _ID, String nom) {
+    public Course(long _ID, String nom, Utilisateur unUtilisateur) {
         this._ID = _ID;
         this.nom = nom;
+        this.unUtilisateur = unUtilisateur ;
     }
 
-    public Course(String nom) {
+    public Course(String nom, Utilisateur unUtilisateur) {
         this._ID = - 1 ;
         this.nom = nom;
+        this.unUtilisateur = unUtilisateur ;
     }
 
     public long get_ID() {
@@ -38,6 +41,14 @@ public class Course implements Parcelable{
         this.nom = nom;
     }
 
+    public Utilisateur getUnUtilisateur() {
+        return unUtilisateur;
+    }
+
+    public void setUnUtilisateur(Utilisateur unUtilisateur) {
+        this.unUtilisateur = unUtilisateur;
+    }
+
     @Override
     public String toString() {
         return "_ID:" + _ID +
@@ -48,19 +59,21 @@ public class Course implements Parcelable{
 
     @Override
     public int describeContents() {
-        return 0;
+        return 1;
     }
 
     @Override
     public void writeToParcel(Parcel dest, int i) {
       dest.writeLong(_ID);
       dest.writeString(nom);
+      dest.writeParcelable(unUtilisateur,1);
      }
 
     //region CREATOR
     public Course(Parcel in) {
-        this._ID         = in.readLong() ;
-        this.nom         = in.readString();
+        this._ID            = in.readLong() ;
+        this.nom            = in.readString();
+        this.unUtilisateur = in.readParcelable(Utilisateur.class.getClassLoader()) ;
     }
 
     static Creator<Course> CREATOR = new Creator<Course>() {

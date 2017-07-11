@@ -1,11 +1,15 @@
 package com.mescourses.appli.mescourses.DAO;
 
+import android.app.Activity;
+import android.app.Application;
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.mescourses.appli.mescourses.modeles.Magasin;
 import com.mescourses.appli.mescourses.DBHelper.DbHelper ;
+import com.mescourses.appli.mescourses.modeles.Utilisateur;
 
 /**
  * Created by student on 10-07-17.
@@ -102,4 +106,74 @@ public class MagasinDAO {
         long number = db.update(TABLE_MAGASIN, cv, whereClause,null);
         return  number;
     }
+
+    private Magasin cursorToMagasin(Cursor c) {
+        int id         = c.getInt(c.getColumnIndex(COLUMN_ID));
+        int refid      = c.getInt(c.getColumnIndex(COLUMN_UTILISATEUR_REFID)) ;
+
+        UtilisateurDAO dao = new UtilisateurDAO(context);
+        dao.openReadable();
+        Utilisateur unUtilisateur = dao.getUserById(refid);
+        dao.close();
+
+        String name    = c.getString(c.getColumnIndex(COLUMN_NOM));
+        String address = c.getString(c.getColumnIndex(COLUMN_ADRESSE));
+        String desc    = c.getString(c.getColumnIndex(COLUMN_DESCRIPTION));
+        float  poslat  = c.getFloat(c.getColumnIndex(COLUMN_POSLATITUDE)) ;
+        float  poslong = c.getFloat(c.getColumnIndex(COLUMN_POSLONGITUDE)) ;
+        return new Magasin(id, unUtilisateur, name, address, desc,poslat,poslong);
+    }
+
+
+    public Magasin getById(int id)
+    {
+        String where = COLUMN_ID + " = " + id;
+
+        Cursor c = db.query(TABLE_MAGASIN,null,where,null,null,null,null );
+
+        int count = c.getCount();
+        if(count > 0){
+            c.moveToFirst();
+            Magasin m = cursorToMagasin(c);
+            return m;
+        }
+        return null;
+    }
+
+    public Magasin[] getAll(){
+
+        Cursor c = db.query(TABLE_MAGASIN,null, null, null, null, null, null);
+
+        int count = c.getCount();
+
+        if(count > 0) {
+            Magasin[] magasins = new Magasin[count];
+
+            for(int i = 0; i < count; i++) {
+                c.moveToPosition(i);
+                magasins[i] = cursorToMagasin(c);
+            }
+            return magasins;
+        }
+        return null;
+    }
+
+    public Magasin[] getMagasinsByUserID(int userid)
+    {
+        String where = COLUMN_UTILISATEUR_REFID + " = " + userid;
+
+        Cursor c = db.query(TABLE_MAGASIN,null,where,null,null,null,null );
+        int count = c.getCount();
+        if(count > 0) {
+            Magasin[] magasins = new Magasin[count];
+
+            for(int i = 0; i < count; i++) {
+                c.moveToPosition(i);
+                magasins[i] = cursorToMagasin(c);
+            }
+            return magasins;
+        }
+        return null;
+    }
+
 }

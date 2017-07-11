@@ -2,10 +2,12 @@ package com.mescourses.appli.mescourses.DAO;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.mescourses.appli.mescourses.modeles.Produit;
 import com.mescourses.appli.mescourses.DBHelper.DbHelper ;
+import com.mescourses.appli.mescourses.modeles.Utilisateur;
 
 
 /**
@@ -96,7 +98,7 @@ public class ProduitDAO {
         ContentValues cv = ProduitToContentValues(p) ;
 
         long id = db.insert(TABLE_PRODUIT,null, cv) ;
-        p.set_ID((int) id); ;
+        p.set_ID((int) id);
 
         Produit check = (id != -1) ? p : null;
         return check;
@@ -114,5 +116,81 @@ public class ProduitDAO {
         long number = db.update(TABLE_PRODUIT, cv, whereClause,null);
         return  number;
     }
+
+
+    private Produit cursorToProduit(Cursor c) {
+        int id         = c.getInt(c.getColumnIndex(COLUMN_ID));
+        int refid      = c.getInt(c.getColumnIndex(COLUMN_UTILISATEUR_REFID)) ;
+
+        UtilisateurDAO dao = new UtilisateurDAO(context);
+        dao.openReadable();
+        Utilisateur unUtilisateur = dao.getUserById(refid);
+        dao.close();
+
+        String nom        = c.getString(c.getColumnIndex(COLUMN_NOM));
+        String marque     = c.getString(c.getColumnIndex(COLUMN_MARQUE));
+        String desc       = c.getString(c.getColumnIndex(COLUMN_DESCRIPTION));
+        String type       = c.getString(c.getColumnIndex(COLUMN_TYPE)) ;
+        float  prix       = c.getFloat(c.getColumnIndex(COLUMN_PRIX)) ;
+        float  poids      = c.getFloat(c.getColumnIndex(COLUMN_POIDS)) ;
+        String lienphoto  = c.getString(c.getColumnIndex(COLUMN_LIENPHOTO));
+        int manque        = c.getInt(c.getColumnIndex(COLUMN_MANQUE));
+
+        return new Produit(id,unUtilisateur,nom,marque,desc,type,prix,poids,lienphoto,manque) ;
+
+    }
+
+
+    public Produit getProduitById(int id)
+    {
+        String where = COLUMN_ID + " = " + id;
+
+        Cursor c = db.query(TABLE_PRODUIT,null,where,null,null,null,null );
+
+        int count = c.getCount();
+        if(count > 0){
+            c.moveToFirst();
+            Produit m = cursorToProduit(c);
+            return m;
+        }
+        return null;
+    }
+
+    public Produit[] getAll(){
+
+        Cursor c = db.query(TABLE_PRODUIT,null, null, null, null, null, null);
+
+        int count = c.getCount();
+
+        if(count > 0) {
+            Produit[] produits = new Produit[count];
+
+            for(int i = 0; i < count; i++) {
+                c.moveToPosition(i);
+                produits[i] = cursorToProduit(c);
+            }
+            return produits;
+        }
+        return null;
+    }
+
+    public Produit[] getProduitsByUserID(int userid)
+    {
+        String where = COLUMN_UTILISATEUR_REFID + " = " + userid;
+
+        Cursor c = db.query(TABLE_PRODUIT,null,where,null,null,null,null );
+        int count = c.getCount();
+        if(count > 0) {
+            Produit[] produits = new Produit[count];
+
+            for(int i = 0; i < count; i++) {
+                c.moveToPosition(i);
+                produits[i] = cursorToProduit(c);
+            }
+            return produits;
+        }
+        return null;
+    }
+
 
 }
