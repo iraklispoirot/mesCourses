@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">mesCourses</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="tv_mag_head">Magasins</string>
+    <string name="tv_prod_head">Produits</string>
+    <string name="tv_liens_head">Liens magasins/produits</string>
+    <string name="tv_courses_head">Courses</string>
+    <string name="tv_mag_body">Ajouter et gérer ici vos magasins \nfavoris</string>
+    <string name="tv_prod_body">Ajouter et gérer ici vos produits \npréférés</string>
+    <string name="tv_liens_body">Faites des liens entre vos magasins \net vos produits</string>
+    <string name="tv_courses_body">Créer et gérer vos courses</string>
+
 </resources>
