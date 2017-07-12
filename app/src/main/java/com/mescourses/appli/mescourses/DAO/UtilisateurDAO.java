@@ -80,8 +80,28 @@ public class UtilisateurDAO {
     }
 
     public void delete(Utilisateur u) {
-        String whereClause = COLUMN_ID + " = " + u.get_ID();
+
+        // prodmag
+        String whereClause = ProdMagDAO.COLUMN_UTILISATEUR_REFID + " = " + u.get_ID() ;
+        db.delete(ProdMagDAO.TABLE_PRODMAG, whereClause, null);
+
+        // produit
+        whereClause = ProduitDAO.COLUMN_UTILISATEUR_REFID + " = " + u.get_ID() ;
+        db.delete(ProduitDAO.TABLE_PRODUIT, whereClause, null);
+
+        // magasin
+        whereClause = MagasinDAO.COLUMN_UTILISATEUR_REFID + " = " + u.get_ID() ;
+        db.delete(MagasinDAO.TABLE_MAGASIN, whereClause, null);
+
+        // course
+        whereClause = CourseDAO.COLUMN_UTILISATEUR_REFID + " = " + u.get_ID() ;
+        db.delete(CourseDAO.TABLE_COURSE, whereClause, null);
+
+        // user
+        whereClause = COLUMN_ID + " = " + u.get_ID();
         db.delete(TABLE_UTILISATEUR, whereClause, null);
+
+
     }
 
 

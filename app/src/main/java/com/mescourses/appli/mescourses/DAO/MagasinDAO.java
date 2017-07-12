@@ -95,7 +95,17 @@ public class MagasinDAO {
     }
 
     public void delete(Magasin m) {
-        String whereClause = COLUMN_ID + " = " + m.get_ID();
+
+        // prodmag
+        String whereClause = ProdMagDAO.COLUMN_MAGASIN_REFID + " = " + m.get_ID() ;
+        db.delete(ProdMagDAO.TABLE_PRODMAG, whereClause, null);
+
+        // panier
+        whereClause = PanierDAO.COLUMN_MAGASIN_REFID + " = " + m.get_ID() ;
+        db.delete(ProdMagDAO.TABLE_PRODMAG, whereClause, null);
+
+        // magasin
+        whereClause = COLUMN_ID + " = " + m.get_ID();
         db.delete(TABLE_MAGASIN, whereClause, null);
     }
 

@@ -105,7 +105,18 @@ public class ProduitDAO {
     }
 
     public void delete(Produit p) {
-        String whereClause = COLUMN_ID + " = " + p.get_ID();
+
+        // prodmag
+        String whereClause = ProdMagDAO.COLUMN_PRODUIT_REFID + " = " + p.get_ID() ;
+        db.delete(ProdMagDAO.TABLE_PRODMAG, whereClause, null);
+
+        // panier
+
+        whereClause = PanierDAO.COLUMN_PRODUIT_REFID + " = " + p.get_ID() ;
+        db.delete(ProdMagDAO.TABLE_PRODMAG, whereClause, null);
+
+        // produit
+        whereClause = COLUMN_ID + " = " + p.get_ID();
         db.delete(TABLE_PRODUIT, whereClause, null);
     }
 

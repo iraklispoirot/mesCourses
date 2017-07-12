@@ -81,8 +81,14 @@ public class CourseDAO {
     }
 
     public void delete(Course u) {
-        String whereClause = COLUMN_ID + " = " + u.get_ID();
+
+        // panierDAO
+        String whereClause = PanierDAO.COLUMN_COURSE_REFID + " = " + u.get_ID();
+        db.delete(PanierDAO.TABLE_PANIER, whereClause, null);
+
+        whereClause = COLUMN_ID + " = " + u.get_ID();
         db.delete(TABLE_COURSE, whereClause, null);
+        
     }
 
 
