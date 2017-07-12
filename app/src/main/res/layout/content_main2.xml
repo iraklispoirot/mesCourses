@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.mescourses.appli.mescourses.DAO.Main2Activity"
+    tools:context="com.mescourses.appli.mescourses.Main2Activity"
     tools:showIn="@layout/activity_main2"
     android:showDividers="end">
 
@@ -14,7 +14,7 @@
         android:layout_marginTop="3dp">
 
         <ImageButton
-            android:id="@+id/imgb_1"
+            android:id="@+id/imgb_mag"
             android:layout_width="90dp"
             android:layout_height="90dp"
             android:adjustViewBounds="true"
@@ -43,7 +43,7 @@
 
     <TableRow android:layout_marginBottom="3dp" >
         <ImageButton
-            android:id="@+id/imgb_2"
+            android:id="@+id/imgb_prod"
             android:layout_width="90dp"
             android:layout_height="90dp"
             android:adjustViewBounds="true"
@@ -77,7 +77,7 @@
 
     <TableRow android:layout_marginBottom="3dp">
         <ImageButton
-            android:id="@+id/img_3"
+            android:id="@+id/img_prodmag"
             android:layout_width="90dp"
             android:layout_height="90dp"
             android:adjustViewBounds="true"
@@ -113,7 +113,7 @@
     <TableRow android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/imgb_4"
+            android:id="@+id/imgb_courses"
             android:layout_width="90dp"
             android:layout_height="90dp"
             android:adjustViewBounds="true"
