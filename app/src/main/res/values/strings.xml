@@ -10,4 +10,20 @@
     <string name="tv_liens_body">Faites des liens entre vos magasins \net vos produits</string>
     <string name="tv_courses_body">Créer et gérer vos courses</string>
 
+    <string name="tv_nom_magasin">Nom de l\'enseigne:</string>
+    <string name="tv_adresse_magasin">Adresse:</string>
+    <string name="tv_description_magasin">Notes:</string>
+    <string name="tv_gps_magasin">Coordonnées GPS</string>
+    <string name="tv_latitude_magasin">Latitude:</string>
+    <string name="tv_longitude_magasin">Longitude:</string>
+
+    <string name="tv_nom_produit">Nom du produit:</string>
+    <string name="tv_marque_produit">Marque:</string>
+    <string name="tv_description_produit">Notes sur le produit:</string>
+
+    <string name="tv_prix_produit">Prix:</string>
+    <string name="tv_prix_poids">Poids:</string>
+    <string name="tv_manquant_poids">Produit manquant:</string>
+    <string name="tv_favori_poids">Produit favori:</string>
+
 </resources>

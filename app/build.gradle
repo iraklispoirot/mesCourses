@@ -1,5 +1,8 @@
 apply plugin: 'com.android.application'
 
+ext {
+    VERSION_SERVICE = "11.0.2"
+}
 android {
     compileSdkVersion 26
     buildToolsVersion "26.0.0"
@@ -22,6 +25,17 @@ android {
     }
 }
 
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion '25.3.0'
+            }
+        }
+    }
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -30,5 +44,13 @@ dependencies {
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:design:26.+'
+    compile 'com.android.support:cardview-v7:26.+'
+    compile "com.google.android.gms:play-services-gcm:$VERSION_SERVICE"
+    compile "com.google.android.gms:play-services-maps:$VERSION_SERVICE"
+    compile "com.google.android.gms:play-services:$VERSION_SERVICE"//test
+
+    apply plugin: 'com.google.gms.google-services'
     testCompile 'junit:junit:4.12'
+
 }
+
