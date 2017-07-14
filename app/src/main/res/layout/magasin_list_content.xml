@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <ImageView
-            android:id="@+id/magasinImage"
+            android:id="@+id/img_magasin"
             android:layout_width="75dp"
             android:layout_height="wrap_content"
             android:src="@mipmap/_shops"/>
@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_toEndOf="@+id/magasinImage">
+            android:layout_toEndOf="@+id/img_magasin">
             <TextView
                 android:id="@+id/tv_nomMagasin"
                 android:layout_width="wrap_content"

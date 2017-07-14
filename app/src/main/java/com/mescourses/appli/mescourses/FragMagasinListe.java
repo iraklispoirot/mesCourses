@@ -1,5 +1,4 @@
 package com.mescourses.appli.mescourses;
-
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,36 +7,35 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.mescourses.appli.mescourses.DAO.ProduitDAO;
-import com.mescourses.appli.mescourses.modeles.Produit;
+import com.mescourses.appli.mescourses.DAO.MagasinDAO;
+import com.mescourses.appli.mescourses.modeles.Magasin;
 
 /**
- * Created by omar on 14/07/2017.
+ * Created by student on 14-07-17.
  */
 
-public class FragProduitListe extends Fragment{
+public class FragMagasinListe extends Fragment{
 
-    public FragProduitListe() {
+    public FragMagasinListe() {
         // Required empty public constructor
     }
 
     //region Singleton
-    private static FragProduitListe instance;
+    private static FragMagasinListe instance;
 
-    public static FragProduitListe getInstance() {
+    public static FragMagasinListe getInstance() {
         if (instance == null) {
-            instance = new FragProduitListe();
+            instance = new FragMagasinListe();
         }
         return instance;
     }
     //endregion
 
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.produit_list,container,false);
+        View v = inflater.inflate(R.layout.magasin_list,container,false);
         v = initView(v) ;
 
         return v ;
@@ -45,20 +43,20 @@ public class FragProduitListe extends Fragment{
 
     private View initView(View v)
     {
-        ProduitListeCustomAdapter adapter;
+        MagasinListeCustomAdapter adapter;
 
         ListView lv =  v.findViewById(R.id.lv_produit) ;
-        adapter=new ProduitListeCustomAdapter(getContext(),getData());
+        adapter=new MagasinListeCustomAdapter(getContext(),getData());
         lv.setAdapter(adapter);
         return v ;
     }
 
-    private Produit[] getData() {
+    private Magasin[] getData() {
 
-        ProduitDAO aDao = new ProduitDAO(getContext()) ;
+        MagasinDAO aDao = new MagasinDAO(getContext()) ;
         aDao = aDao.openReadable();
-        Produit[] mesProduits = aDao.getAll() ;
-        return mesProduits ;
+        Magasin[] mesMagasins = aDao.getAll() ;
+        return mesMagasins ;
 
     }
 

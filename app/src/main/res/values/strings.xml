@@ -29,4 +29,15 @@
     <string name="tv_manquant_produit">Produit manquant:</string>
     <string name="tv_favori_poids">Produit favori:</string>
     <string name="tv_photo_produit">Photo produit:</string>
+
+    <string name="tb_liste_produit">Liste des produits</string>
+    <string name="tb_liste_magasin">Liste des magasins</string>
+    <string name="tb_liste_prodmag">Liens produits/magasins</string>
+    <string name="t_liste_course">Liste des courses</string>
+    <string name="tb_produit_detail">Détail du produit</string>
+    <string name="tb_magasin_detail">Détail du magasin</string>
+    <string name="tb_prodmag_detail">Détail du lien</string>
+    <string name="tb_courses_detail">Détail des courses</string>
+
+
 </resources>

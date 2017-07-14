@@ -7,7 +7,7 @@
     android:layout_centerHorizontal="true"
     android:orientation="vertical"
     android:weightSum="4"
-    tools:context="com.mescourses.appli.mescourses.MainActivity">
+    tools:context="com.mescourses.appli.mescourses.LoginActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
