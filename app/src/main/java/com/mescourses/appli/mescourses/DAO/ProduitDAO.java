@@ -37,7 +37,7 @@ public class ProduitDAO {
                     + COLUMN_ID                   + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                     + COLUMN_UTILISATEUR_REFID    + " INTEGER NOT NULL, "
                     + COLUMN_NOM                  + " TEXT NOT NULL, "
-                    + COLUMN_MARQUE               + " TEXT NOT NULL"
+                    + COLUMN_MARQUE               + " TEXT NOT NULL,"
                     + COLUMN_DESCRIPTION          + " TEXT, "
                     + COLUMN_TYPE                 + " TEXT, "
                     + COLUMN_PRIX                 + " FLOAT, "

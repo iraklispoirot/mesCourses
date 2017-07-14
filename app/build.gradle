@@ -48,6 +48,10 @@ dependencies {
     compile "com.google.android.gms:play-services-gcm:$VERSION_SERVICE"
     compile "com.google.android.gms:play-services-maps:$VERSION_SERVICE"
     compile "com.google.android.gms:play-services:$VERSION_SERVICE"//test
+    dependencies {
+        compile 'com.github.joaquimley:faboptions:1.1.2'
+        compile 'com.hlab.fabrevealmenu:fab-reveal-menu:1.0.2'
+    }
 
     apply plugin: 'com.google.gms.google-services'
     testCompile 'junit:junit:4.12'

@@ -128,7 +128,7 @@
         android:layout_weight="1"
         android:enabled="false"
         android:gravity="left"
-        android:inputType="text"
+        android:inputType="textMultiLine"
         android:textAppearance="?android:attr/textAppearanceMedium" />
     </TableRow>
 
